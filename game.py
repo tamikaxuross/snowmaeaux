@@ -20,23 +20,31 @@ def snowman(snowman_word):
     If the player wins and, 
     'Sorry, you lose! The word was {snowman_word}' if the player loses
     """
+    #creates dictonary to trach status of each letter in word  guessed or not 
     correct_letter_guess_statuses = build_letter_status_dict(snowman_word)
+    #list to keep track of wrong guesses made by player
     wrong_guesses_list = []
-
+#loop through each round, allow player 7 incorrect guesses max
     for wrong_guess_count in range(SNOWMAN_MAX_WRONG_GUESSES):
+        #print the current progress of the word, showing the correctly guessed word
         print_word_progress_string(snowman_word, correct_letter_guess_statuses)
+        #display current state of snowman completed
         print_snowman_graphic(wrong_guess_count)
+        #get a letter guess from the player
         guess = get_letter_from_user(correct_letter_guess_statuses, wrong_guesses_list)
-
+#check if the guessed letter is in the word
         if guess in snowman_word:
+            #mark the guessed letter as correctly guessed
             correct_letter_guess_statuses[guess] = True 
         else: 
+            #else add the wrong guess to the list and display wrong guess message 
             wrong_guesses_list.append(guess)  
             print("Wrong guess!")
+            #if word is fully gues print win message andecit
         if is_word_guessed(snowman_word, correct_letter_guess_statuses):
             print("Congratulations, you win!")
             return
-        
+        #if loop ends, player made 7 incorrect guessed, print you lose message 
     print(f"Sorry, you lose! The word was {snowman_word}")
 
 
