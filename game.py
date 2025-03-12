@@ -25,11 +25,13 @@ def snowman(snowman_word):
     #list to keep track of wrong guesses made by player
     wrong_guesses_list = []
 #loop through each round, allow player 7 incorrect guesses max
-    for wrong_guess_count in range(SNOWMAN_MAX_WRONG_GUESSES):
+    while len(wrong_guesses_list) < SNOWMAN_MAX_WRONG_GUESSES:
         #print the current progress of the word, showing the correctly guessed word
         print_word_progress_string(snowman_word, correct_letter_guess_statuses)
         #display current state of snowman completed
-        print_snowman_graphic(wrong_guess_count)
+        print_snowman_graphic(len(wrong_guesses_list))
+        print(f"Wrong guesses so far: {', '.join(wrong_guesses_list)}")
+        print(f"Remaining guesses: {SNOWMAN_MAX_WRONG_GUESSES - len(wrong_guesses_list)}")
         #get a letter guess from the player
         guess = get_letter_from_user(correct_letter_guess_statuses, wrong_guesses_list)
 #check if the guessed letter is in the word
@@ -42,6 +44,7 @@ def snowman(snowman_word):
             print("Wrong guess!")
             #if word is fully gues print win message andecit
         if is_word_guessed(snowman_word, correct_letter_guess_statuses):
+            print_word_progress_string(snowman_word, correct_letter_guess_statuses)
             print("Congratulations, you win!")
             return
         #if loop ends, player made 7 incorrect guessed, print you lose message 
